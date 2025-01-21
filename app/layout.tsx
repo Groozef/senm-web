@@ -15,26 +15,18 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "/path-to-your-image.jpg",  
+                url: "/path-to-your-image.jpg",
                 width: 1200,
                 height: 630,
-                alt: "3D Visualization and Design"
-            }
+                alt: "3D Visualization and Design",
+            },
         ],
     },
-    twitter: {
-        card: "summary_large_image",
-        title: "SENM Design - 3D Visualization and Design",
-        description:
-            "We offer high-quality 3D visualizations and design services for interiors, exteriors, residential, office, and commercial spaces.",
-        image: "/path-to-your-image.jpg"
+    // The robots meta tag is added directly here
+    robots: {
+        index: true,
+        follow: true,
     },
-    additionalMetaTags: [
-        {
-            name: "robots",
-            content: "index, follow",
-        },
-    ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -47,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     rel="stylesheet"
                 />
                 <link rel="icon" href="/favicon.jpg" sizes="64x64" />
+                <meta name="robots" content="index, follow" />
             </head>
             <body className="antialiased" style={{ fontFamily: "Geist, sans-serif" }}>
                 {children}
