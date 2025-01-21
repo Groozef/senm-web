@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ContactForm() {
-    const [formData, setFormData] = useState({ name: "", email: "", message: "", hp: "" }); 
+    const [formData, setFormData] = useState({ name: "", email: "", message: "", hp: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,7 +32,7 @@ export default function ContactForm() {
 
         const sanitizedData = {
             name: sanitizeInput(formData.name),
-            email: formData.email, 
+            email: formData.email,
             message: sanitizeInput(formData.message),
         };
 
@@ -51,10 +51,15 @@ export default function ContactForm() {
             }
 
             toast.success("Message sent successfully! We'll get back to you soon.");
-            setFormData({ name: "", email: "", message: "", hp: "" }); 
-        } catch (error) {
-            console.error("Error sending message:", error);
-            toast.error(error.message || "Something went wrong. Please try again later.");
+            setFormData({ name: "", email: "", message: "", hp: "" });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error("Error sending message:", error);
+                toast.error(error.message || "Something went wrong. Please try again later.");
+            } else {
+                console.error("Unexpected error:", error);
+                toast.error("Something went wrong. Please try again later.");
+            }
         } finally {
             setIsLoading(false);
         }
@@ -69,7 +74,7 @@ export default function ContactForm() {
             <h2 className="text-3xl font-bold">Contact Us</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Hidden field for protection from bots */}
-                <input type="text" name="hp" style={{ display: 'none' }} /> 
+                <input type="text" name="hp" style={{ display: 'none' }} />
 
                 <Input
                     name="name"
